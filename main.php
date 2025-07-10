@@ -1,25 +1,30 @@
 <?php
 require_once "Calculator.php";
 
-function validateOp(string $op): string
+function validateOp()
 {
   $allowed = ['+', '-', '*', '/'];
-
-  if (!in_array($op, $allowed)) {
-    throw new Exception("Invalid operator. Use +, -, *, or / only.");
+  while (true) {
+    $op = readline("Enter an operator (+, -, *, /): ");
+    if (in_array($op, $allowed)) {
+      return $op;
+    } else {
+      echo "Error: Invalid operator. Use +, -, *, or / only.\n";
+    }
   }
-
-  return $op;
 }
 
-function validateNum(string $input)
+function validateNum(string $label)
 {
-  if (!is_numeric($input)) {
-    throw new Exception("Input must be a valid number \n");
+  while (true) {
+    $input = readline("Enter $label number: ");
+    if (is_numeric($input)) {
+      return $input;
+    } else {
+      echo "Error: Input must be a valid number \n";
+    }
   }
-  return $input;
 }
-
 
 function runCalculator() {
   echo "==============================\n";
@@ -27,15 +32,10 @@ function runCalculator() {
   echo "==============================\n\n";
   while (true){
     try{
-      $input1 = readline("Enter first number: ");
-      $num1 = validateNum($input1);
-    
-      $input2 = readline("Enter second number: ");
-      $num2 = validateNum($input2);
-    
-      $inputOp = readline("Enter an operator (+, -, *, /): ");
-      $op = validateOp($inputOp);
-    
+      $num1 = validateNum("first");
+      $num2 = validateNum("second");
+      $op = validateOp();
+      
       $calc = new Calculator($num1, $num2);
   
       switch ($op) {
@@ -66,8 +66,6 @@ function runCalculator() {
       }
     }catch (Exception $e) {
       echo "Error: " . $e->getMessage() . "\n";
-      runCalculator();
-      return;
     }
   }
   echo "goodbye\n";
