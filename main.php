@@ -6,6 +6,9 @@ function validateOp()
   $allowed = ['+', '-', '*', '/'];
   while (true) {
     $op = readline("Enter an operator (+, -, *, /): ");
+    if (strtolower($op) === 'exit') {
+      exit("goodbye\n");
+    }
     if (in_array($op, $allowed)) {
       return $op;
     } else {
@@ -18,6 +21,9 @@ function validateNum(string $label)
 {
   while (true) {
     $input = readline("Enter $label number: ");
+    if (strtolower($input) === 'exit') {
+      exit("goodbye\n");
+    }
     if (is_numeric($input)) {
       return $input;
     } else {
@@ -29,6 +35,7 @@ function validateNum(string $label)
 function runCalculator() {
   echo "==============================\n";
   echo "Welcome to my Calculator\n";
+  echo "Type 'exit' anytime to quit.\n";
   echo "==============================\n\n";
   while (true){
     try{
@@ -58,7 +65,7 @@ function runCalculator() {
         $formatted = number_format($result, 3);
         echo "Result: $formatted\n";
       } else {
-        echo $result . "\n";
+        echo "Result= " . $result . "\n";
       }
       $continue = readline("Do you want to perform another calculation? (y/n): ");
       if (strtolower($continue) !== 'y') {
