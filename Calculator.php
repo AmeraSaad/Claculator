@@ -1,13 +1,9 @@
 <?php
 class Calculator
 {
-  private $num1;
-  private $num2;
 
-  public function __construct($a, $b)
+  public function __construct(private $num1,private $num2)
   {
-    $this->num1 = $a;
-    $this->num2 = $b;
   }
 
   public function add()
